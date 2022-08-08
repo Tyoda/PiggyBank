@@ -1,0 +1,7 @@
+
+
+########## Piggy Bank #########
+
+model.mod.piggybank.piggybank.clay = PiggyBank.wom?Piggy.texture=PiggyBankTex.dds
+
+model.mod.piggybank.piggybank.pottery = PiggyBank.wom?Piggy.texture=PiggyBankTexFired.dds

@@ -1,0 +1,63 @@
+
+plugins {
+    id 'idea'
+    id 'java'
+}
+
+group 'org.tyoda.wurm.PiggyBank'
+version '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url "https://gotti.no-ip.org/maven/repository" }
+    maven { url 'https://jitpack.io' }
+}
+
+
+var serverJar = files("/media/tyoda/Files/w/p/wurmmods/libraries/server.jar")
+var commonJar = files("/media/tyoda/Files/w/p/wurmmods/libraries/common.jar")
+var iconzzJar = files("/media/tyoda/Files/w/p/wurmmods/libraries/Iconzz.jar")
+
+dependencies {
+    if(serverJar){
+        implementation(serverJar)
+    }else{
+        implementation 'org.gotti.wurmunlimited:server:3720466'
+    }
+    if(commonJar){
+        implementation(commonJar)
+    }else{
+        implementation 'org.gotti.wurmunlimited:common:3720466'
+    }
+    if(iconzzJar){
+        implementation(iconzzJar)
+    }else{
+        compileOnly 'com.github.Tyoda:Iconzz:0.1.1'
+    }
+    compileOnly 'org.gotti.wurmunlimited:server-modlauncher:0.45'
+    compileOnly 'com.github.Tyoda:CommonLibrary:0.0.6'
+}
+
+jar {
+    archiveFileName = "${project.name}.jar"
+}
+
+task pack(type: Zip) {
+    from fileTree(dir: 'pack', include: '**')
+    destinationDirectory = file("build/pack")
+    archiveName "piggy-pack.jar"
+}
+
+task dist(type: Zip) {
+    into("mods", {
+        into(project.name, {
+            from jar
+            from pack
+            into("icons", {
+                from fileTree(dir: "mods/${project.name}/icons", include: '*')
+            })
+        })
+        from fileTree(dir: 'mods', include: '*')
+    })
+    archiveFileName = "${project.name}-${project.version}.zip"
+}
