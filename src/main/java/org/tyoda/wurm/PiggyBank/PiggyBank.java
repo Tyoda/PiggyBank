@@ -44,12 +44,12 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
     /**
      * Model name for the clay piggy bank
      */
-    private String clayModelName = "model.mod.commontweaks.piggybank.clay";
+    private String clayModelName = "model.mod.piggybank.piggybank.clay";
 
     /**
      * Model name for the pottery piggy bank
      */
-    private String potteryModelName = "model.mod.commontweaks.piggybank.pottery";
+    private String potteryModelName = "model.mod.piggybank.piggybank.pottery";
 
     /**
      * Items the piggy banks can be broken on
@@ -128,7 +128,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
                     "return org.tyoda.wurm.PiggyBank.PiggyBank.depositCoin(mover, this, com.wurmonline.server.Items.getItem(targetId));" +
                     "}" +
                 "}");
-            // org.tyoda.wurm.CommonTweaks.CommonTweaks.logger.info("Checking for item moving");
+
             logger.info("successfully injected piggy bank");
         }catch(NotFoundException e){ logger.severe(e.toString()); }
         catch(javassist.CannotCompileException e){
