@@ -25,3 +25,8 @@ and the <a href="https://github.com/Tyoda/CommonLibrary">CommonLibrary</a> mod i
 ### On a less serious note:
 
 Don't forget to paint your piggy banks pink for the complete experience!
+
+
+
+# Credits
+- The models and icons were all made by the one and only Starstorm
