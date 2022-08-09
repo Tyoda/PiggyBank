@@ -21,7 +21,8 @@ public class BreakPiggyBankAction implements ModAction, BehaviourProvider, Actio
     public BreakPiggyBankAction(){
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(this.actionId, "Break the bank",
-                "breaking the bank", new int[]{Actions.ACTION_TYPE_MAYBE_USE_ACTIVE_ITEM});
+                "breaking the bank", new int[]{Actions.ACTION_TYPE_MAYBE_USE_ACTIVE_ITEM,
+                                                    Actions.ACTION_TYPE_IGNORERANGE});
         ModActions.registerAction(actionEntry);
     }
 

@@ -29,7 +29,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public class PiggyBank implements WurmServerMod, PreInitable, Configurable, ServerStartedListener, ItemTemplatesCreatedListener, Versioned {
-    public static final String version = "1.0";
+    public static final String version = "1.1";
 
     /**
      * Template ID of the piggy bank item
@@ -79,7 +79,15 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
             29/*mineDoorSteel*/, 36/*slateBricks*/, 37/*marbleSlabs*/, 39/*planksTarred*/, 41/*cobblestoneRough*/,
             42/*cobblestoneRound*/, 44/*sandstoneBricks*/, 45/*sandstoneSlabs*/, 46/*slateSlabs*/, 47/*marbleBricks*/,
             48/*potteryBricks*/, 49/*preparedBridge*/, (byte)200/*cave*/, (byte)201/*caveExit*/,
-            (byte)207/*caveReinforced*/, (byte)246/*cavePrepared*/
+            (byte)202/*caveWall*/, (byte)203/*caveReinforced*/, (byte)205/*caveSlate*/, (byte)206/*caveMarble*/,
+            (byte)207/*caveFloorReinforced*/, (byte)220/*caveGold*/, (byte)221/*caveSilver*/, (byte)222/*caveIron*/,
+            (byte)223/*caveCopper*/, (byte)224/*caveLead*/, (byte)225/*caveZinc*/, (byte)226/*caveTin*/,
+            (byte)227/*caveAdamantine*/, (byte)228/*caveGlimmersteel*/, (byte)229/*caveRockSalt*/,
+            (byte)230/*caveSandstone*/, (byte)231/*caveStoneRf*/, (byte)232/*caveSlateRf*/, (byte)233/*cavePotterYRf*/,
+            (byte)234/*caveRoundedRf*/, (byte)235/*caveSandstoneRf*/, (byte)236/*caveRenderedRf*/,
+            (byte)237/*caveMarbleRf*/, (byte)238/*caveWoodRf*/, (byte)239/*cavePStoneRf*/, (byte)240/*cavePSlateRf*/,
+            (byte)241/*cavePPotteryRf*/, (byte)242/*cavePRoundedRf*/, (byte)243/*cavePSandstoneRf*/,
+            (byte)244/*cavePMarbleRf*/, (byte)245/*cavePWoodRf*/, (byte)246/*caveFloorPrepared*/
     };
 
     /**
@@ -106,7 +114,17 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
         logger.info("Configuring piggy bank");
         breakOnItems = p.getIntArray("breakOnItems", breakOnItems);
         breakOnAllItems = p.getBoolean("breakOnAllItems", breakOnAllItems);
-        breakOnTiles = p.getByteArray("breakOnTiles", breakOnTiles);
+        int[] breakInt = p.getIntArray("breakOnTiles", new int[0]);
+        if(breakInt.length > 0){
+            breakOnTiles = new byte[breakInt.length];
+            for(int i = 0; i < breakInt.length; ++i){
+                if(breakInt[i] >= 0 && breakInt[i] < 256){
+                    breakOnTiles[i] = (byte)breakInt[i];
+                }else{
+                    logger.severe("Invalid ID in config file for tile Id: "+breakInt[i]);
+                }
+            }
+        }
         breakOnAllTiles = p.getBoolean("breakOnAllTiles", breakOnAllTiles);
         clayModelName = p.getString("clayModelName", clayModelName);
         potteryModelName = p.getString("potteryModelName", potteryModelName);

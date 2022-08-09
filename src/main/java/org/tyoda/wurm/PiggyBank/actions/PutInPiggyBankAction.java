@@ -20,7 +20,8 @@ public class PutInPiggyBankAction implements ModAction, BehaviourProvider, Actio
     public PutInPiggyBankAction(){
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(this.actionId, "Deposit",
-                "depositing", new int[]{Actions.ACTION_TYPE_MAYBE_USE_ACTIVE_ITEM});
+                "depositing", new int[]{Actions.ACTION_TYPE_MAYBE_USE_ACTIVE_ITEM,
+                                            Actions.ACTION_TYPE_IGNORERANGE});
         ModActions.registerAction(actionEntry);
     }
 
@@ -48,6 +49,11 @@ public class PutInPiggyBankAction implements ModAction, BehaviourProvider, Actio
         if (!performer.isPlayer() || !coin.isCoin() ||
                 piggy.getTemplateId() != PiggyBank.getInstance().getPiggyBankTemplateId())
             return defaultPropagation(action);
+        if(Math.abs(performer.getTileX() - target.getTileX()) > 1 || Math.abs(performer.getTileY() - target.getTileY()) > 1){
+            performer.getCommunicator().sendNormalServerMessage("There's no way you could throw the coins in the piggy bank from this range.");
+            return true;
+        }
+
         return PiggyBank.depositCoin(performer, coin, piggy);
     }
 
