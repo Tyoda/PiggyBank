@@ -194,7 +194,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
                     .build();
             piggyBankTemplateId = piggyBankPotteryTemplate.getTemplateId();
             CreationEntryCreator.createSimpleEntry(1011, 14, 130, piggyBankClayTemplate.getTemplateId(), false, true, 0.0F, false, false, CreationCategories.POTTERY);
-            TempStates.addState(new TempState(piggyBankClayTemplate.getTemplateId(), piggyBankPotteryTemplate.getTemplateId(), (short)10000, true, false, false));
+            TempStates.addState(new TempState(piggyBankClayTemplate.getTemplateId(), piggyBankPotteryTemplate.getTemplateId(), (short)5000, true, false, false));
         } catch (IOException e) { logger.warning(e.getMessage()); }
 
         // register model provider
