@@ -29,7 +29,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public class PiggyBank implements WurmServerMod, PreInitable, Configurable, ServerStartedListener, ItemTemplatesCreatedListener, Versioned {
-    public static final String version = "1.1";
+    public static final String version = "1.1.1";
 
     /**
      * Template ID of the piggy bank item
@@ -100,6 +100,11 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
      */
     private boolean breakOnAllTiles = false;
 
+    /**
+     * The temperature at which the piggy bank gets fired
+     */
+    private short firedTemperature = 5000;
+
     private static PiggyBank instance;
 
     public static final Logger logger = Logger.getLogger(PiggyBank.class.getName());
@@ -128,6 +133,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
         breakOnAllTiles = p.getBoolean("breakOnAllTiles", breakOnAllTiles);
         clayModelName = p.getString("clayModelName", clayModelName);
         potteryModelName = p.getString("potteryModelName", potteryModelName);
+        firedTemperature = p.getShort("firedTemperature", firedTemperature);
         logger.info("Done configuring piggy bank");
     }
 
@@ -194,7 +200,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
                     .build();
             piggyBankTemplateId = piggyBankPotteryTemplate.getTemplateId();
             CreationEntryCreator.createSimpleEntry(1011, 14, 130, piggyBankClayTemplate.getTemplateId(), false, true, 0.0F, false, false, CreationCategories.POTTERY);
-            TempStates.addState(new TempState(piggyBankClayTemplate.getTemplateId(), piggyBankPotteryTemplate.getTemplateId(), (short)5000, true, false, false));
+            TempStates.addState(new TempState(piggyBankClayTemplate.getTemplateId(), piggyBankPotteryTemplate.getTemplateId(), firedTemperature, true, false, false));
         } catch (IOException e) { logger.warning(e.getMessage()); }
 
         // register model provider
