@@ -66,11 +66,11 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
             821/*gravestone*/, 822/*gravestoneBuries*/, 869/*colossusOfVynora*/, 870/*colossusOfMagranon*/,
             889/*openFirePlace*/, 891/*woodenBench*/, 892/*wardrobe*/, 893/*woodenCoffer*/, 894/*royalThrone*/,
             905/*stoneKeystone*/, 906/*marbleKeystone*/, 907/*colossusOfFo*/, 911/*highBookshelf*/, 912/*lowBookshelf*/,
-            916/*colossusOfLibila*/, 927/*cupBoard*/, 928/*roundMarbleTable*/, 929/*rectMarbleTable*/, 1023/*kiln*/,
-            1277/*larder*/, 1323/*statueEagle*/, 1324/*statueWorg*/, 1325/*statueHellHorse*/, 1326/*statueVynora*/,
-            1327/*statueMagranon*/, 1328/*statueFo*/, 1329/*statueLibila*/, 1330/*statueDrake*/,
-            1400/*emptyLowBookshelf*/, 1401/*emptyHighBookshelf*/, 1415/*statueUnicorn*/, 1416/*statueGoblin*/,
-            1417/*statueFiend*/
+            916/*colossusOfLibila*/, 927/*cupBoard*/, 928/*roundMarbleTable*/, 929/*rectMarbleTable*/,
+            995/*treasureChest*/, 1023/*kiln*/, 1277/*larder*/, 1323/*statueEagle*/, 1324/*statueWorg*/,
+            1325/*statueHellHorse*/, 1326/*statueVynora*/, 1327/*statueMagranon*/, 1328/*statueFo*/,
+            1329/*statueLibila*/, 1330/*statueDrake*/, 1400/*emptyLowBookshelf*/, 1401/*emptyHighBookshelf*/,
+            1415/*statueUnicorn*/, 1416/*statueGoblin*/, 1417/*statueFiend*/
     };
     /**
      * Tiles piggy banks can be broken on
