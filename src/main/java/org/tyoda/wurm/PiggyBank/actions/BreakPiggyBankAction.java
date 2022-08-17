@@ -16,8 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class BreakPiggyBankAction implements ModAction, BehaviourProvider, ActionPerformer {
-    private final ActionEntry actionEntry;
-    private final short actionId;
+    public final ActionEntry actionEntry;
+    public final short actionId;
     public BreakPiggyBankAction(){
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(this.actionId, "Break the bank",

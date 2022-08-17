@@ -20,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import org.tyoda.wurm.Iconzz.Iconzz;
 import org.tyoda.wurm.PiggyBank.actions.BreakPiggyBankAction;
 import org.tyoda.wurm.PiggyBank.actions.PutInPiggyBankAction;
+import org.tyoda.wurmunlimited.mods.CommonLibrary.CommonLibrary;
 import org.tyoda.wurmunlimited.mods.CommonLibrary.LootTable;
 import org.tyoda.wurmunlimited.mods.CommonLibrary.SimpleProperties;
 
@@ -29,7 +30,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public class PiggyBank implements WurmServerMod, PreInitable, Configurable, ServerStartedListener, ItemTemplatesCreatedListener, Versioned {
-    public static final String version = "1.1.1";
+    public static final String version = "1.1.2";
 
     /**
      * Template ID of the piggy bank item
@@ -294,6 +295,85 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
         }
         return false;
     }
+
+    /**
+     * Creates a new pottery piggy bank holding the desired amount of coins
+     * @param iron The amount of coins the piggy bank should have
+     * @return A new piggy bank Item in the void, with random quality,
+     *          with the appropriate data and weight
+     */
+    public static Item createPiggyWithCoins(int iron) throws FailedException, NoSuchTemplateException{
+        return createPiggyWithCoins(iron, LootTable.randomQuality());
+    }
+
+    /**
+     * Creates a new pottery piggy bank holding the desired amount of coins
+     * @param iron The amount of coins, in iron, the piggy bank should have
+     * @param quality The quality the new piggy bank should have
+     * @return A new piggy bank Item in the void, with the appropriate data and weight
+     */
+    public static Item createPiggyWithCoins(int iron, float quality) throws FailedException, NoSuchTemplateException {
+        if(quality < 0 || quality > 100){
+            quality = 10f;
+        }
+        Item piggy = ItemFactory.createItem(instance.piggyBankTemplateId, quality, (byte)0, null);
+        piggy.setData1(iron);
+        piggy.setWeight(piggy.getWeightGrams(false)+weightOfCoins(iron), false, true);
+        return piggy;
+    }
+
+    /**
+     * Returns the minimum weight of a certain amount of money
+     * @param iron The amount of money in iron coins
+     * @return The minimum amount this much money must weigh in grams
+     */
+    public static int weightOfCoins(int iron){
+        int weight = 0;
+        int ironLeft = iron;
+        final byte weightTwenty = 30;
+        final byte weightFive = 20;
+        final byte weightPenny = 10;
+
+        for( ; ironLeft >= LootTable.goldTwenty; ironLeft -= LootTable.goldTwenty){
+            weight += weightTwenty;
+        }
+        for( ; ironLeft >= LootTable.goldFive; ironLeft -= LootTable.goldFive){
+            weight += weightFive;
+        }
+        for( ; ironLeft >= LootTable.goldPenny; ironLeft -= LootTable.goldPenny){
+            weight += weightPenny;
+        }
+        for( ; ironLeft >= LootTable.silverTwenty; ironLeft -= LootTable.silverTwenty){
+            weight += weightTwenty;
+        }
+        for( ; ironLeft >= LootTable.silverFive; ironLeft -= LootTable.silverFive){
+            weight += weightFive;
+        }
+        for( ; ironLeft >= LootTable.silverPenny; ironLeft -= LootTable.silverPenny){
+            weight += weightPenny;
+        }
+        for( ; ironLeft >= LootTable.copperTwenty; ironLeft -= LootTable.copperTwenty){
+            weight += weightTwenty;
+        }
+        for( ; ironLeft >= LootTable.copperFive; ironLeft -= LootTable.copperFive){
+            weight += weightFive;
+        }
+        for( ; ironLeft >= LootTable.copperPenny; ironLeft -= LootTable.copperPenny){
+            weight += weightPenny;
+        }
+        for( ; ironLeft >= LootTable.ironTwenty; ironLeft -= LootTable.ironTwenty){
+            weight += weightTwenty;
+        }
+        for( ; ironLeft >= LootTable.ironFive; ironLeft -= LootTable.ironFive){
+            weight += weightFive;
+        }
+        for( ; ironLeft >= LootTable.ironPenny; ironLeft -= LootTable.ironPenny){
+            weight += weightPenny;
+        }
+
+        return weight;
+    }
+
     public int getPiggyBankTemplateId() {
         return piggyBankTemplateId;
     }
