@@ -20,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 import org.tyoda.wurm.Iconzz.Iconzz;
 import org.tyoda.wurm.PiggyBank.actions.BreakPiggyBankAction;
 import org.tyoda.wurm.PiggyBank.actions.PutInPiggyBankAction;
-import org.tyoda.wurmunlimited.mods.CommonLibrary.CommonLibrary;
 import org.tyoda.wurmunlimited.mods.CommonLibrary.LootTable;
 import org.tyoda.wurmunlimited.mods.CommonLibrary.SimpleProperties;
 
@@ -139,6 +138,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
     }
 
     public void preInit(){
+        ModActions.init();
         // inject code for piggy bank
         // public final boolean moveToItem(Creature mover, long targetId, boolean lastMove)
         try {
