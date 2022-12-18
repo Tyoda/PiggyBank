@@ -29,7 +29,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 public class PiggyBank implements WurmServerMod, PreInitable, Configurable, ServerStartedListener, ItemTemplatesCreatedListener, Versioned {
-    public static final String version = "1.1.2";
+    public static final String version = "1.2";
 
     /**
      * Template ID of the piggy bank item
@@ -176,7 +176,21 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
             ModItems.init();
             ItemTemplate piggyBankClayTemplate = new ItemTemplateBuilder("ClayPiggyBank")
                     .name("clay piggy bank", "clay piggy banks", "A piggy bank that could be fired in a kiln.")
-                    .itemTypes(new short[]{108, 196, 44, 147, 194, 63, 1})
+                    .itemTypes(new short[]{
+                            ItemTypes.ITEM_TYPE_HOLLOW,
+                            ItemTypes.ITEM_TYPE_POTTERY,
+                            ItemTypes.ITEM_TYPE_REPAIRABLE,
+                            ItemTypes.ITEM_TYPE_TURNABLE,
+                            ItemTypes.ITEM_TYPE_NOPUT,
+                            ItemTypes.ITEM_TYPE_DESC_IS_EXAM,
+                            ItemTypes.ITEM_TYPE_NAMED,
+                            ItemTypes.ITEM_TYPE_IMPROVEITEM,
+                            ItemTypes.ITEM_TYPE_MISSION,
+                            ItemTypes.ITEM_TYPE_IMPROVE_USES_TYPE_AS_MATERIAL,
+                            ItemTypes.ITEM_TYPE_UNFIRED,
+                            ItemTypes.ITEM_TYPE_NOT_RUNEABLE,
+                            ItemTypes.ITEM_TYPE_PLURAL_NAME
+                    })
                     .imageNumber(clayIcon)
                     .decayTime(Long.MAX_VALUE)
                     .containerSize(20, 20, 20)
@@ -189,7 +203,22 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
             piggyBankClayTemplateId = piggyBankClayTemplate.getTemplateId();
             ItemTemplate piggyBankPotteryTemplate = new ItemTemplateBuilder("PotteryPiggyBank")
                     .name("piggy bank", "pottery piggy banks", "A cute piggy bank. You get the urge to throw it at something hard.")
-                    .itemTypes(new short[]{108, 30, 123, 195, 194, 52, 92, 48, 1})
+                    .itemTypes(new short[]{
+                            ItemTypes.ITEM_TYPE_HOLLOW,
+                            ItemTypes.ITEM_TYPE_POTTERY,
+                            ItemTypes.ITEM_TYPE_TURNABLE,
+                            ItemTypes.ITEM_TYPE_HASDATA,
+                            ItemTypes.ITEM_TYPE_DECORATION,
+                            ItemTypes.ITEM_TYPE_DESC_IS_EXAM,
+                            ItemTypes.ITEM_TYPE_COLORABLE,
+                            ItemTypes.ITEM_TYPE_NAMED,
+                            ItemTypes.ITEM_TYPE_MISSION,
+                            ItemTypes.ITEM_TYPE_TEN_PER_TILE,
+                            ItemTypes.ITEM_TYPE_USES_SPECIFIED_CONTAINER_VOLUME,
+                            ItemTypes.ITEM_TYPE_NO_IMPROVE,
+                            ItemTypes.ITEM_TYPE_PLANTABLE,
+                            ItemTypes.ITEM_TYPE_PLURAL_NAME
+                    })
                     .imageNumber(potteryIcon)
                     .decayTime(Long.MAX_VALUE)
                     .containerSize(20, 20, 20)
@@ -199,6 +228,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
                     .weightGrams(500)
                     .behaviourType((short)1)
                     .build();
+            piggyBankPotteryTemplate.setContainerSize(0, 0, 0);
             piggyBankTemplateId = piggyBankPotteryTemplate.getTemplateId();
             CreationEntryCreator.createSimpleEntry(1011, 14, 130, piggyBankClayTemplate.getTemplateId(), false, true, 0.0F, false, false, CreationCategories.POTTERY);
             TempStates.addState(new TempState(piggyBankClayTemplate.getTemplateId(), piggyBankPotteryTemplate.getTemplateId(), firedTemperature, true, false, false));
@@ -302,6 +332,7 @@ public class PiggyBank implements WurmServerMod, PreInitable, Configurable, Serv
      * @return A new piggy bank Item in the void, with random quality,
      *          with the appropriate data and weight
      */
+    @SuppressWarnings("unused")
     public static Item createPiggyWithCoins(int iron) throws FailedException, NoSuchTemplateException{
         return createPiggyWithCoins(iron, LootTable.randomQuality());
     }

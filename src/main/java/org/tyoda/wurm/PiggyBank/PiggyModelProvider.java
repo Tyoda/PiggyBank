@@ -12,6 +12,5 @@ public class PiggyModelProvider implements ModelNameProvider {
         //    sb.append("decayed.");
 
         return sb.toString();
-
     }
 }

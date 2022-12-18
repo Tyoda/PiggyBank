@@ -20,8 +20,11 @@ public class PutInPiggyBankAction implements ModAction, BehaviourProvider, Actio
     public PutInPiggyBankAction(){
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(this.actionId, "Deposit",
-                "depositing", new int[]{Actions.ACTION_TYPE_MAYBE_USE_ACTIVE_ITEM,
-                                            Actions.ACTION_TYPE_IGNORERANGE});
+                "depositing", new int[]{
+                        Actions.ACTION_TYPE_IGNORERANGE,
+                        Actions.ACTION_TYPE_MAYBE_USE_ACTIVE_ITEM,
+                    }
+        );
         ModActions.registerAction(actionEntry);
     }
 
